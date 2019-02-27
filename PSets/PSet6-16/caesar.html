@@ -1,0 +1,143 @@
+<h1 class="psetheader">Caesar</h1>
+<h2 id="tl-dr" class="psetheader">tl;dr</h2>
+<p>Implemente un programa que encripte mensajes usando Caesar’s cipher, como abajo.</p>
+<pre><code>
+$ <span style="text-decoration: underline;">./caesar 13</span>
+plaintext:  <span style="text-decoration: underline;">HELLO</span>
+ciphertext: URYYB
+</code></pre>
+<div class="separador"></div>
+<h2 id="background" class="psetheader">Background</h2>
+<p>Supuestamente, Caesar (sí, ese Caesar) usó para "encriptar" (encubrir en una forma reversible) mensajes confidenciales corriendo cada letra del mismo un número determinado de lugares. Por ejemplo, el talvez escribía A como B, B como C, C como D, …, y, dándole la vuelta alfabéticamente, Z como A. Y así, para decir HELLO a alguien, Caesar podría escribir IFMMP. Una vez habiéndo recibido tal mensaje del Caesar, el receptor tendría que "desencriptarlo" corriendo las letras en la dirección opuesta el mismo número de lugares.</p>
+<p>La secretividad de este "cryptosistema" descansaba en que solamente Caesar y los recipientes conocían un secreto, el número de lugares que Caesar había corrido sus letras (e.g., 1). ¡Algo no particularmente seguro para los estándares modernos, pero, hey, si tú eres quizás el primero en el mundo en hacerlo, es muy seguro!</p>
+<p>El texto no encriptado es generalmente llamado <em>texto plano</em>. El texto encriptado es generalmente llamado <em>texto cifrado</em>. Y el secreto utilizado es llamado una <em>key</em> o llave.</p>
+<table>
+<caption class="title psetheader">Tabla 1. Encriptando HELLO con una llave de 1 nos da IFMMP.</caption>
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<tbody>
+<tr>
+<td><p><strong>plaintext</strong></p></td>
+<td><p>H</p></td>
+<td><p>E</p></td>
+<td><p>L</p></td>
+<td><p>L</p></td>
+<td><p>O</p></td>
+</tr>
+<tr class="tablerowgray">
+<td><p><strong>+ key</strong></p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr>
+<td><p><strong>= ciphertext</strong></p></td>
+<td><p>I</p></td>
+<td><p>F</p></td>
+<td><p>M</p></td>
+<td><p>M</p></td>
+<td><p>P</p></td>
+</tr>
+</tbody>
+</table>
+<p>Más generalmente, el algoritmo Caesar’s (i.e., cipher) encripta mensajes "rotando" cada letra por $latex k$ posiciones. Más formalmente, si $latex p$ es un plaintext (i.e., un mensaje no encriptado), $latex p_i$ es el $latex i^{avo}$ caracter en $latex p$, y $latex k$ es una llave secreta (i.e., un número entero no negativo), entonces cada letra, $latex c_i$, en el ciphertext, $latex c$, es computado como</p>
+<em align="center">$latex ci=(p_i+k)$ mod 26</em>
+<p>en donde <em>mod 26</em> aquí significa el "residuo de dividir por 26." Esta fórmula quizás haga que cipher se vea más complicado de lo que es, realmente es solo una forma concisa de expresar el algoritmo precisamente.</p>
+<div class="separador"></div>
+<h2 id="specification" class="psetheader">Especificación</h2>
+<p>Diseñe e implemente un programa, <code>caesar</code>, que encripte mensajes utilizando Caesar’s cipher.</p>
+<ul>
+	<li>Implemente su programa en un archivo llamado <code>caesar.c</code> en un directorio llamado <code>caesar</code>.</li>
+	<li>Su programa debe aceptar un solo argumento de linea de commando, un entero no negativo. Vamos a llamarlo <em>k</em> por sanidad de la discusión.</li>
+	<li>Si su programa es ejecutado sin ningún argumento de linea de comandos o con más de  un argumento de línea de comandos, su programa deberá imprimir un mensaje de error de su elección (con <code>printf</code>) y retornar de <code>main</code> un valor de <code>1</code> (lo que tiende a significar un  error) inmediatamente.</li>
+	<li>Usted puede asumir que, si un usuario provee una línea de argumentos de línea de comandos, este será un entero no negativo (ej.: <code>1</code>). No se necesita comprobar que en efecto sea numerico.</li>
+	<li>No asuma que $latex k$ será menor o igual que 26. Su programa deberá trabajar con todos los valores integrales no negativos de $latex k$ menores que $latex 2^{31}-26$. En otras palabras, usted no necesita preocuparse por si su programa eventualmente colapsa si el usuario escoje un valor para <em>k</em> que es muy grande o al menos muy grande para caber en un <code>int</code>. (Recuerde que un <code>int</code> puede desbordarse.) Pero, aún si $latex k$ es mayor que 26, los caracteres alfabéticos en la entrada de su programa input deberán mantenerse como caracteres alfabéticos en la salida de su programa. Por ejemplo, si $latex k$ es 27, <code>A</code> no debería convertirse en <code>[</code> aún si <code>[</code> está a 27 posiciones de <code>A</code> en ASCII, por <a href="http://asciichart.com">asciichart.com</a>; <code>A</code> debería convertirse en <code>B</code>, ya que <code>B</code> está a 27 posiciones de <code>A</code>, al dar la vuelta de <code>Z</code> a <code>A</code>.</li>
+	<li>Su programa deberá mostrar de salida <code>texto plano:</code> (sin una nueva linea) y luego solicitar al usuario una <code>string</code> de texto plano (usando <code>get_string</code>).</li>
+	<li>Su programa deberá mostar como salida <code>texto cifrado</code>: (sin un salto de linea) seguido de el texto plano que correspoonda al ciphertext, con cada character alfabético en el texto plano "rotado" <em>k</em> posiciones; los caracteres no alfabéticos deberán mostrarse en la salida sin ningún cambio.</li>
+	<li>Su programa deberá preserver las letras: letras mayúsculas, aunque rotadas , deberán permanecer como letras mayúsculas; las letras minúsculass , aunque rotadas deberán permanecer como letras minúsculas.</li>
+	<li>Después de poner como salida el texto cifrado, se deberá incluir una nueva línea , su programa deberá finalizar entonces retornando <code>0</code> de <code>main</code>.</li>
+</ul>
+<div class="separador"></div>
+<h2 id="walkthrough" class="psetheader">Walkthrough</h2>
+https://youtu.be/ajLKe_5X6Dk
+<div class="separador"></div>
+<h2 id="usage" class="psetheader">Uso</h2>
+<p>Su programa deberá comportarse como el ejemplo de abajo. Asumiendo que el texto subrayado es lo que el usuario ha introducido.</p>
+<pre><code>$ <span style="text-decoration: underline;">./caesar 1</span>
+plaintext:  <span style="text-decoration: underline;">HELLO</span>
+ciphertext: IFMMP</code></pre>
+<pre><code>$ <span style="text-decoration: underline;">./caesar 13</span>
+plaintext:  <span style="text-decoration: underline;">hello, world</span>
+ciphertext: uryyb, jbeyq</code></pre>
+<pre><code>$ <span style="text-decoration: underline;">./caesar 13</span>
+plaintext:  <span style="text-decoration: underline;">be sure to drink your Ovaltine</span>
+ciphertext: or fher gb qevax lbhe Binygvar</code></pre>
+<pre><code>$ <span style="text-decoration: underline;">./caesar</span>
+Usage: ./caesar k</code></pre>
+<pre><code>$ <span style="text-decoration: underline;">./caesar 1 2 3 4 5</span>
+Usage: ./caesar k</code></pre>
+<div class="separador"></div>
+<h2 id="testing" class="psetheader">Probando</h2>
+<h3 id="correctness" class="psetheader"><code>check50</code></h3>
+<pre><code>check50 cs50/2017/x/caesar</code></pre>
+<div class="separador"></div>
+<h2 id="staff-solution" class="psetheader">Solución del Staff</h2>
+<pre><code>~cs50/pset2/caesar</code></pre>
+<div class="separador"></div>
+<h2 id="hints" class="psetheader">Consejos</h2>
+<p>Este programa necesita aceptar un argumento de linea de comando, $latex k$, así que usted querrá declarar <code>main</code> con:</p>
+<pre><code><span style="color: #2b91af;">int</span> main(<span style="color: #2b91af;">int</span> argc, string argv[])</code></pre>
+<p>Recuerde que <code>argv</code> es un "array" de strings. Usted puede pensar en un array como una fila de lockers de un gimnasio, dentro de los cuales hay ciertos valores (y quizás algunos calcetines). En este caso, dentro de cada uno de esos lockers hay un <code>string</code>. Para abrir (i.e., "index into") el primer locker, utilice una sintáxis como <code>argv[0]</code>, ya que los arrays son "indexados a cero." Para abrir el próximo locker, utilice la sintáxis como <code>argv[1]</code>. Y así sucesivamente. Por supuesto, si hay <code>n</code> lockers, usted deberá dejar de abrir lockers una vez que llegue a <code>argv[n - 1]</code>, ¡ya que <code>argv[n]</code> no existe! (Eso o le pertenece a otra persona en cuyo caso igual no debería abrirlo.)</p>
+<p>Y así usted podría acceder a <em>k</em> con código como:</p>
+<pre><code>string k = argv[1];</code></pre>
+<p>¡asumiendo que está realmente ahí! Recuerde que <code>argc</code> es un <code>int</code> que es igual al número de strings que hay en <code>argv</code>, así que usted deberá revisar el valor de <code>argc</code> ¡antes de abrir un locker que quizás no exista!</p>
+<p>Idealmente, <code>argc</code> será <code>2</code>. ¿Por qué? Bien, recuerde que dentro de <code>argv[0]</code>, por defecto es, el nombre del programa, asi que <code>argc</code> siempre será al menos <code>1</code>. Pero para este programa usted desea que el usuario provea un argumento de línea de comando, <em>k</em>, en cuyo caso <code>argc</code> deberá ser <code>2</code>. Por supuesto,  si el usuario provea más de un argumento de linea de comando en el prompt, <code>argc</code> podría ser mayor que <code>2</code>, en cuyo caso, de nuevo, su programa deberá imprimir un error y devolver <code>1</code>.</p>
+<p>Ahora, sólo porque el usuario introduzca un entero en el prompt, eso no significa que su entrada será automáticamente almacenada en un <code>int</code>. Al contrario, será almacenada como un <code>string</code>, ¡que resultará verse como un <code>int</code>!  Y por ello usted deberá convertir esa <code>string</code> en un <code>int</code>. Con suerte tendrán, una función, <code>atoi</code>, que existe para ese propósito exactamente. He aquí como deberá usarla:</p>
+<pre><code><span style="color: #2b91af;">int</span> k = atoi(argv[1]);</code></pre>
+<p>Note, que esta vez, hemos declarado <em>k</em> como un <code>int</code> asi que usted podrá hacer alguna aritmética con ello.</p>
+<p>Ya que <code>atoi</code> es declarado en <code>stdlib.h</code>, usted querrá <code>#include</code> ese archivo de cabecera en su propio código. (Técnicamente, su código compilará sin él ahí, ya que notros también ya la hemos <code>#include</code> en <code>cs50.h</code>. Pero mejor no confiar en otra librería para <code>#include</code> archivos de cabecera que necesitará.)</p>
+<p>Okay, así que una vez tenga almacenado <em>k</em> como un <code>int</code>, necesitará solicitar al usuario un texto plano.  Es posible que <code>get_string</code> de <code>cs50.h</code> pueda ayudarle con eso.</p>
+<p>Una vez que tenga ambos <em>k</em> y un texto plano, <em>p</em>, es tiempo de encriptar el último con el primero. Recuerde que puede iterar sobre los caracteres de una <code>string</code>, imprimiendo cada una de ellas a la vez, con código como el siguiente:</p>
+<pre><code><span style="color: #0000ff;">for</span> (<span style="color: #2b91af;">int</span> i = 0, n = strlen(p); i < n; i++)
+{
+	printf(<span style="color: #a31515;">"%c"</span>, p[i]);
+}</code></pre>
+<p>En otras palabras, al igual que <code>argv</code> es un array de strings, también una <code>string</code> es un arreglo de chars. Por eso se puede usar corchetes para accesar caracteres individuales en una strings justo como strings individuales en <code>argv</code>. Elegante, ¿eh? Por supuesto, imprimiendo cada uno de los caracteres en una string uno a la vez no es exactamente criptografía. Bueno, quizás técnicamente si <code>k</code> es 0. ¡Pero lo siguiente debería ayudarle a ayudar a Caesar a implementar su cipher!</p>
+<p>Incidentalmente, necesitará <code>#include</code> otro archivo de cabecera para poder utilizer <code>strlen</code>.</p>
+<p>Además de <code>atoi</code>, usted quizás encuentre algunas funciones muy útiles documentadas (en inglés) en <a href="http://reference.cs50.net">reference.cs50.net</a> bajo <strong>ctype.h</strong> y <strong>stdlib.h</strong>. Por ejemplo, <code>isalpha</code> resulte ser muy útil cuando se itera sobre caracteres de texto plano.</p>
+<p>Y con respecto a dar la vuelta de <code>Z</code> to <code>A</code> (o <code>z</code> a <code>a</code>), no se olvide de <code>%</code>, el operador de módulo de C. Quizás también quiera revisar <a href="http://asciitable.com">asciitable.com</a>, que revela los códigos ASCII para más que solo los caracteres alfabéticos , solo en caso de que resulte imprimiendo algunos caracteres accidentalmente.</p>
+<div class="separador"></div>
+<h2 id="faqs" class="psetheader">FAQs</h2>
+<em>¡Ninguna hasta ahora! ¡Recargue esta página periódicamente para revisar si llega alguna!</em>
+<div class="separador"></div>
+<h2 id="changelog" class="psetheader">Registro de cambios</h2>
+<ul>
+ 	<li>29-11-2017
+<ul>
+ 	<li>Versión inicial</li>
+</ul>
+</li>
+</ul>
+<button class="et_pb_button et_pb_button_0 et_pb_module et_pb_bg_layout_light boton-contenidos" id="botonmenumostrar" style="background-color: #fff !important; color: #a51C30 !important; border-color: #a51C30 !important;">+ Contenidos</button>
+<nav id="botonmenu" class="menu-emergente" style="display:none;">
+<div>Tabla de contenidos:</div>
+<a href="#tl-dr">tl;dr</a>
+<a href="#background">Background</a>
+<a href="#specification">Especificación</a>
+<a href="#walkthrough">Walkthrough</a>
+<a href="#usage">Uso</a>
+<a href="#testing">Probando</a>
+<a href="#correctness">check50</a>
+<a href="#staff-solution">Solución del Staff</a>
+<a href="#hints">Consejos</a>
+<a href="#faqs">FAQs</a>
+<a href="#changelog">Registro de cambios</a>
+</nav>

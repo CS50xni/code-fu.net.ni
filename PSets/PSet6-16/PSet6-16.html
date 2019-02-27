@@ -1,0 +1,144 @@
+<h1 class="psetheader">Problem Set 6: Sentimental</h1>
+<h2 id="tl-dr" class="psetheader">tl;dr</h2>
+<ol>
+	<li>Ver <a href="../../y17c2/#week15|0">la charla de la semana 15 (Clase 25)</a> (y las de la <a href="../../y17c2/#week11|0">semana 11 (Clase 19 y Clase 20)</a> y <a href="../../y17c2/#week12|0">semana 12 (Clase 21 y Clase 22)</a>, si aún no lo has hecho).</li>
+	<li>Portar algunos programas de lenguaje C a Python.</li>
+	<li>Analizar algunos sentimientos.</li>
+</ol>
+<div class="separador"></div>
+<h2 id="getting-started" class="psetheader">Para empezar</h2>
+<pre><code>update50
+mkdir ~/workspace/pset6/
+cd ~/workspace/pset6/</code></pre>
+<div class="separador"></div>
+<h2 id="problems" class="psetheader">Problemas</h2>
+Todo el código fuente que escribas, debe ser consistente con la Guía de estilo para código en Python, también conocida como <a href="https://www.python.org/dev/peps/pep-0008/">PEP 8</a>.
+<ol>
+	<li>Implementar este problema, exactamente como se especifica, pero en Python:
+ 		<ul>
+ 			<li><a href="../../problems/less/mario">Mario</a>, en un archivo llamado <code>mario.py</code> en <code>pset6/</code>.</li>
+ 		</ul>
+ 	</li>
+ 	<li>Implementar este problema, exactamente como se especifica, pero en Python:
+ 		<ul>
+ 			<li><a href="../../problems/less/greedy">Greedy</a>, en un archivo llamado <code>greedy.py</code> en <code>pset6/</code>.</li>
+ 		</ul>
+ 	</li>
+ 	<li>Implementar cualquiera (uno) de los siguientes, exactamente como se especifica, pero en Python:
+ 		<ul>
+ 			<li><a href="../../problems/less/caesar">Caesar</a>, en un archivo llamado <code>caesar.py</code> en <code>pset6/</code>.</li>
+ 			<li><a href="../../problems/less/vigenere">Vigenère</a>, en un archivo llamado <code>vigenere.py</code> en <code>pset6/</code>.</li>
+ 			<li><a href="../../problems/more/crack">Crack</a>, en un archivo llamado <code>crack.py</code> en <code>pset6/</code>.</li>
+ 		</ul>
+ 	</li>
+ 	<li>Implementar <a href="../../problems/less/sentiments">Sentimientos</a> en <code>pset6/sentiments/</code>.</li>
+ </ol>
+¡No uses <code>check50</code> para éstos!
+<div class="separador"></div>
+<h2 id="hints" class="psetheader">Consejos</h2>
+<ul>
+	<li>Asegúrate de usar Python 3, no Python 2.</li>
+	<li>Si tienes un programa en un archivo, por decir, <code>foo.py</code>, puedes ejecutar ese programa usando <code>python foo.py</code></li>
+	<li>Para Mario, Greedy, Credit, Caesar, Vigenère y Crack, es <strong>razonable</strong> ayudarte de implementaciones de éstos en lenguaje C, ya sea que hayan sido hechas por ti mismo, o por otras personas, incluyendo las implementaciones (y análisis post mortem) en lenguaje C del personal. <strong>No es razonable</strong> ver implementaciones de estos programas hechas por otros en Python. <strong>No es razonable</strong> ver implementaciones de Sentimientos hechas por otros.</li>
+	<li>Toma este conjunto de problemas como una oportunidad no sólo de portar tus trabajos anteriores de lenguaje C a Python, ¡sino también como una oportunidad de mejorar tus diseños anteriores usando lo que has aprendido desde entonces!</li>
+	<li>Cuando estés portando código fuente de lenguaje C a Python en el Entorno de Desarrollo Integrado (EDI) CS50, puedes elegir la opción <strong>View &gt; Layout &gt; Horizontal Split</strong>, lo cual te permitirá ver uno a la par del otro.</li>
+	<li>Si bien el propósito de este conjunto de problemas es enseñarte cómo aprender un nuevo lenguaje de programación por tu cuenta, ten en mente que las siguientes acciones no son solamente razonables, según el sílabo, pero también tiene propósito de motivarte a realizar:
+		<ul>
+			<li>Incorporar en tu propio código unas cuantas líneas de código que encuentres en línea o en otra parte, siempre y cuando dichas líneas de código no sean la solución a los problemas que se te asignaron y que siempre cites su origen.</li>
+			<li>Recurrir a la web u a otros medios para instruirte más allá de lo que te ofrece el curso, para referencias y para encontrar soluciones a tus dificultades técnicas, pero no para encontrar soluciones completas a problemas asignados o de tu propio proyecto final.</li>
+		</ul>
+	</li>
+	<li>Te invito a que uses la biblioteca de CS50 para Python, la cual incluye <code>get_float</code>, <code>get_int</code> y <code>get_string</code>. Sólo recuerda incluir
+		<pre><code>import cs50</code></pre>
+		al inicio de tu código fuente, o puedes utilizar la función <a href="https://docs.python.org/3/library/functions.html#input">input</a> y validar la entrada del usuario por tu propia cuenta.
+	</li>
+	<li>Puede que utilizar <a href="https://docs.python.org/3/library/functions.html#chr">chr</a> y/o <a href="https://docs.python.org/3/library/functions.html#ord">ord</a> te sean de ayuda.</li>
+	<li>Puede que estas referencias te sean de interés (en inglés):
+		<ul>
+			<li><a href="https://docs.python.org/3/reference/index.html">El manual de referencia de lenguaje Python</a></li>
+			<li><a href="https://docs.python.org/3/library/functions.html">La biblioteca estándar de Python</a></li>
+			<li><a href="https://docs.python.org/3/tutorial/index.html">El tutorial de Python</a></li>
+		</ul>
+	</li>
+</ul>
+<div class="separador"></div>
+<h2 id="walkthrough" class="psetheader">Tutorial guiado</h2>
+<h3 id="caesar" class="psetheader">Caesar</h3>
+<a href="https://www.youtube.com/watch?v=4dWvb9ZcRl4">Ver vídeo</a>
+<h3 id="vigenere" class="psetheader">Vigenère</h3>
+<a href="https://www.youtube.com/watch?v=gGydsNwAO_w">Ver vídeo</a>
+<h3 id="crack" class="psetheader">Crack</h3>
+<a href="https://www.youtube.com/watch?v=tswHrPGQ6KI">Ver vídeo</a>
+<div class="separador"></div>
+<h2 id="faqs" class="psetheader">Preguntas frecuentes</h2>
+<h3 class="psetheader">AttributeError: 'module' object has no attribute <code>get_</code></h3>
+<p>Si ves este error (para <code>cs50.get_char</code>, <code>cs50.get_float</code>, <code>cs50.get_int</code>, <code>cs50.get_string</code>), intenta ejecutando los siguientes comandos (que resuelven un error en una versión anterior de la biblioteca CS50 para Python):</p>
+<pre><code>sudo chmod -R a+rX /usr/lib/python2.7/dist-packages/cs50
+sudo chmod -R a+rX /usr/lib/python3/dist-packages/cs50
+</code></pre>
+<h3 class="psetheader">ImportError: No module named 'sqlalchemy'</h3>
+Si ves este error, ¡ejecuta
+<pre><code>pip install --user sqlalchemy</code></pre>
+<p>para resolverlo!</p>
+<div class="separador"></div>
+<h2 id="submit" class="psetheader">Cómo enviarlo</h2>
+<h3 class="psetheader">Paso 1 - 2</h3>
+<pre><code>update50
+cd ~/workspace/pset6/
+submit50 pset6</code></pre>
+<h3 class="psetheader">Paso 2 - 2</h3>
+[et_pb_countdown_timer _builder_version="3.17.1" title="El formulario para recepción se habilitará el 15 de marzo de 2019 al medio día. Recarga esta página pasada esa hora. Faltan:" date_time="2019-03-15 12:00" module_id="pset6_16_contador"][/et_pb_countdown_timer]
+<iframe id="pset6_16_recepcion" style="display:none;" src="https://docs.google.com/forms/d/e/1FAIpQLSc83RcJPao_WMPKj1g8JgvuJH-rAZ-0kmSGabY6E0eD7Ad34g/viewform?embedded=true" width="100%" height="500px" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+<p>Esto fue Problem Set 6.</p>
+<div class="separador"></div>
+<h2 id="changelog" class="psetheader">Registro de cambios</h2>
+<ul>
+	<li>27-02-2019
+		<ul>
+			<li>Modificado el menú "+ Contenidos" (inferior derecha).</li>
+			<li>Actualizados enlaces de tutoriales.</li>
+		</ul>
+	</li>
+	<li>19-02-2019
+		<ul>
+			<li>Agregado formulario de recepción.</li>
+		</ul>
+	</li>
+ 	<li>29-11-2017
+ 		<ul>
+ 			<li>Versión inicial.</li>
+ 		</ul>
+ 	</li>
+</ul>
+<button class="et_pb_button et_pb_button_0 et_pb_module et_pb_bg_layout_light boton-contenidos" id="botonmenumostrar" style="background-color: #fff !important; color: #a51C30 !important; border-color: #a51C30 !important;">+ Contenidos</button>
+<nav id="botonmenu" class="menu-emergente" style="display:none;">
+	<div>Tabla de contenidos:</div>
+	<a href="#tl-dr">tl;dr</a>
+	<a href="#getting-started">Empezar</a>
+	<a href="#problems">Problemas</a>
+	<a href="#hints">Consejos</a>
+	<a href="#walkthrough">Tutoriales</a>
+	<a href="#faqs">FAQs</a>
+	<a href="#submit">¿Cómo enviarlo?</a>
+	<a href="#changelog">Registro de cambios</a>
+</nav>
+<script>
+jQuery.noConflict();
+var end = new Date('03/13/2019 11:59 AM');
+	(function ($) {
+        function readyFn() {
+        	var now = new Date();
+        	var distance = end - now;
+            if (distance < 0){
+				$("#pset6_16_contador").css("display","none");
+            	if($("#pset6_16_recepcion").css("display")=="block"){
+            		$("#pset6_16_recepcion").css("display","none")
+        		}
+        		else{
+        			$("#pset6_16_recepcion").css("display","block")
+        		}return;
+			}
+        }
+        $(document).ready(readyFn);
+    })(jQuery);
+</script>

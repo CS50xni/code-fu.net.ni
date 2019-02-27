@@ -1,0 +1,124 @@
+<h1 class="psetheader">Vigenère</h1>
+<h2 id="tl-dr" class="psetheader">tl;dr</h2>
+Implemente un programa que encripte mensajes usando cifrado Vigenère, al igual que abajo:
+<pre><code>$ ./vigenere ABC
+plaintext:  HELLO
+ciphertext: HFNLP</code></pre>
+<div class="separador"></div>
+<h2 id="background" class="psetheader">Background</h2>
+<p>El cipher Vigenère’s mejora sobre <a href="http://docs.code-fu.net.ni/problems/less/caesar">Caesar’s cipher</a> al encriptar mensajes utilizando una secuencia de teclas (o, poniéndolo de otra forma, un keyword). En otras palabras, si $latex p$ es un texto plano, y $latex k$ es una tecla (ej., un string alfabético, por lo cual A representa 0, B representa 1, C representa 2, …, y Z representa 25), luego cada letra, ci, en el ciphertext, c, es computado como:</p>
+<p style="text-align:center">$latex c_i=(p_{i}+k_{j})$ mod $latex 26$</p>
+<p>Note que este cifrado usa de $latex k_j$ en oposición a solo $latex k$. Y si $latex k$ es más corto que $latex p$, entonces las letras en $latex k$ deben ser reutilizadas cíclicamente tantas veces como tome encriptar $latex p$.</p>
+<p>En otras palabras, si Vigenère mismo desea decir HELLO a alguien confidencialmente, usando una keyword de digamos, ABC, el encriptará la H con una key of 0 (ej., A), la E con una key de 1 (i.e., B), y la primera L con una key de 2 (ej., C), a este punto quedándose sin letras en el keyword, y teniendo que re utilizar (parte de) el para encriptar la segunda L con una key de 0 (ej., A) de nuevo, y la O con una key de 1 (ej., B) de nuevo. Y así escribirá HELLO como HFNLP.</p>
+<table>
+<caption class="title psetheader">Tabla 1. Encriptando HELLO con una keyword de ABC (reusado cíclicamente como ABCAB) resultando HFNLP.</caption>
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<tbody>
+<tr>
+<td><p><strong>plaintext</strong></p></td>
+<td><p>H</p></td>
+<td><p>E</p></td>
+<td><p>L</p></td>
+<td><p>L</p></td>
+<td><p>O</p></td>
+</tr>
+<tr class="tablerowgray">
+<td rowspan="2"><p><strong>+ key</strong></p></td>
+<td><p>A</p></td>
+<td><p>B</p></td>
+<td><p>C</p></td>
+<td><p>A</p></td>
+<td><p>B</p></td>
+</tr>
+<tr>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="tablerowgray">
+<td><p><strong>= ciphertext</strong></p></td>
+<td><p>H</p></td>
+<td><p>F</p></td>
+<td><p>N</p></td>
+<td><p>L</p></td>
+<td><p>P</p></td>
+</tr>
+</tbody>
+</table>
+<div class="separador"></div>
+<h2 id="specification" class="psetheader">Especificación</h2>
+Diseñe e implemente un programa que encripte mensajes usando cifrado Vigenère.
+<ul>
+ 	<li>Implemente su programa en un archivo llamado <code>vigenere.c</code> en un directorio llamado <code>vigenere.</code></li>
+ 	<li>Su programa deberá aceptar un solo argumento de línea de comando: un keyword, $latex k$, compuesta enteramente por caracteres alfabéticos.</li>
+ 	<li>Si su programa es ejecutado sin ningún argumento de línea de comando, con másde un argumento de línea de comando, o con un argumento de línea de comando que contenga cualquier carácter no alfabético, su programa deberá imprimir un mensaje de error (de su elección) y salir inmediatamente, con <code>main</code> retornando <code>1</code> (de este modo significando un error).</li>
+ 	<li>De lo contrario, su programa deberá proceder a solicitar al usuario una string de texto plano, p, (con un aviso <code>plaintext:</code>) con lo cual entonces deberá encriptar de acuerdo al cifrado Vigenère con $latex k$, finalmente imprimiendo el resultado (antepuesto a <code>ciphertext:</code> y finalizando con una nueva línea) y saliendo con <code>main</code> retornando <code>0</code>.</li>
+ 	<li>Con respecto a los caracters en k, usted deberá tratar a <code>A</code> y <code>a</code> como 0, <code>B</code> y <code>b</code> como 1, … , y <code>Z</code> y <code>z</code> como 25.</li>
+ 	<li>Su programa deberá aplicar cifrado Vigenère solamente a un caracter en $latex p$ si ese caracter es una letra. Todos los otros caracteres (números, símbolos, espacios, signos de puntuación, etc.) deben ser impresos en la salida sin cambio. Además, si su código se va a aplicar a la $latex j^{avo}$ caracter de $latex k$ para el $latex i^{avo}$ caracter de $latex p$, pero este ultimo resulta ser un caracter no alfabético, usted deberá esperar para aplicar ese $latex j^{avo}$ caracter de $latex k$ al próximo carácter en $latex p$; usted no deberá avanzar aún al siguiente caracter en $latex k$.</li>
+ 	<li>Su programa deberá preserva el tipo de cada letra en $latex p$.</li>
+</ul>
+<div class="separador"></div>
+<h2 id="walkthrough" class="psetheader">Walkthrough</h2>
+https://www.youtube.com/watch?v=gGydsNwAO_w
+<div class="separador"></div>
+<h2 id="usage" class="psetheader">Uso</h2>
+Su programa deberá comportarse como los ejemplos a continuación. Asumiendo que el texto subrayado es lo que algún usuario ha introducido.
+<pre><code>$ ./vigenere 13
+Usage: ./vigenere k</code></pre>
+<pre><code>$ ./vigenere
+Usage: ./vigenere k</code></pre>
+<pre><code>$ ./vigenere bacon and eggs
+Usage: ./vigenere k</code></pre>
+<pre><code>$ ./vigenere bacon
+plaintext: Meet me at the park at eleven am
+ciphertext: Negh zf av huf pcfx bt gzrwep oz</code></pre>
+<div class="separador"></div>
+<h2 id="testing" class="psetheader">Probando</h2>
+Para ayudarle a probar <code>vigenere</code>, hemos escrito para usted un programa llamado <code>devigenere</code> que también recibe uno y solo un argumento de línea de commando ( keyword) pero cuyo trabajo es tomar el ciphertext como entrada y producir texto plano como salida. Para utilizar nuestro programa, ejecute:
+<pre><code>~cs50/pset2/devigenere k</code></pre>
+En su prompt, donde <code>k</code> es una keyword. Presumiblemente usted querrá pegar la salida de su programa como entrada a nuestro programa; deberá asegurarse por supuesto, de utilizar la misma key. Recuerde que usted no necesita implementar <code>devigenere</code>, solamente <code>vigenere</code>.
+<h3 id="correctness" class="psetheader"><code>check50</code></h3>
+<pre><code>check
+50 cs50/2017/x/vigenere</code></pre>
+<div class="separador"></div>
+<h2 id="staff-solution" class="psetheader">Solución del Staff</h2>
+<pre><code>~cs50/pset2/vigenere</code></pre>
+<div class="separador"></div>
+<h2 id="hints" class="psetheader">Consejos</h2>
+¿No está Seguro de dónde empezar? Por suerte, este programa es bastante similar a <code><a href="http://docs.code-fu.net.ni/problems/less/caesar/">caesar</a></code>! Sólo que esta vez, usted necesita decidir cuál caracter en $latex k$ usar al iterar de caracter a caracter en $latex p$.
+<div class="separador"></div>
+<h2 id="faqs" class="psetheader">FAQs</h2>
+<em>¡Ninguna hasta ahora! ¡Recargue esta página periódicamente para revisar si llega alguna!</em>
+<div class="separador"></div>
+<h2 id="changelog" class="psetheader">Registro de cambios</h2>
+<ul>
+ 	<li>29-11-2017
+<ul>
+ 	<li>Versión inicial</li>
+</ul>
+</li>
+</ul>
+<button class="et_pb_button et_pb_button_0 et_pb_module et_pb_bg_layout_light boton-contenidos" id="botonmenumostrar" style="background-color: #fff !important; color: #a51C30 !important; border-color: #a51C30 !important;">+ Contenidos</button>
+<nav id="botonmenu" class="menu-emergente" style="display:none;">
+<div>Tabla de contenidos:</div>
+<a href="#tl-dr">tl;dr</a>
+<a href="#background">Background</a>
+<a href="#specification">Especificación</a>
+<a href="#walkthrough">Walkthrough</a>
+<a href="#usage">Uso</a>
+<a href="#testing">Probando</a>
+<a href="#correctness">check50</a>
+<a href="#staff-solution">Solución del Staff</a>
+<a href="#hints">Consejos</a>
+<a href="#faqs">FAQs</a>
+<a href="#changelog">Registro de cambios</a>
+</nav>

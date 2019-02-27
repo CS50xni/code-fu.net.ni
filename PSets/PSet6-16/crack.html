@@ -1,0 +1,79 @@
+<h1 class="psetheader">Crack</h1>
+<h2 id="tl-dr" class="psetheader">tl;dr</h2>
+<p>Implemente un programa que crackee passwords, como se muestra a continuación.</p>
+<pre><code>
+$ <span style="text-decoration: underline;">./crack 50fkUxYHbnXGw</span>
+rofl</code></pre>
+<div class="separador"></div>
+<h2 id="background" class="psetheader">Background</h2>
+<p>En la mayoría de los sistemas corriendo Linux estos días hay un archivo llamado <code>/etc/shadow</code>, que contiene usernames y passwords. Afortunadamente, los passwords contenidos ahí no son almacenados "en claro" sino que, en cambio son encriptados usando una " función hash de una sola vía o one-way hash " Cuando un usuario hace log en estos sistemas introduciendo un username y password, el último es encriptado con la misma función hash, y el resultado es comparado contra la entrada del username en <code>/etc/shadow</code>. Si los dos hashes concuerdan, el  usuario es aceptado. Si alguna vez olvidas un password, quizás le hayan dicho que los técnicos de Soporte no pueden ver su password pero pueden cambiarlo para usted. Eso es probable porque los técnicos de soporte solo pueden ver en todo caso, un hash de su password, no su password en sí mismo. Pero podrán crear un nuevo hash para usted.</p>
+<p>Aún cuando los passwords en <code>/etc/shadow</code> están como hashes, la función hash no siempre es tan fuerte. Muy a menudo adversarios, al obtener de alguna manera ese archive, son capaces de descifrar (y revisar) los passwords de los usuarios o de crackearlos utilizando fuerza bruta (ej., tratando todos los passwords posibles). Abajo tenemos como luciría <code>/etc/shadow</code> aunque simplificado, en dónde en cada línea está formateada como <code>username:hash</code>.</p>
+<pre><code>andi:50.jPgLzVirkc
+jason:50YHuxoCN9Jkc
+malan:50QvlJWn2qJGE
+mzlatkova:50CPlMDLT06yY
+patrick:50WUNAFdX/yjA
+rbowden:50fkUxYHbnXGw
+summer:50C6B0oz0HWzo
+stelios:50nq4RV/NVU0I
+wmartin:50vtwu4ujL.Dk
+zamyla:50i2t3sOSAZtk</code></pre>
+<div class="separador"></div>
+<h2 id="specification" class="psetheader">Especificación</h2>
+<p>Diseñe e implemente un programa, <code>crack</code>, que crackee passwords.</p>
+<ul>
+	<li>Implemente su programa en un archivo llamado <code>crack.c</code> en un directorio llamado <code>crack</code>.</li>
+	<li>Su programa deberá aceptar un solo argumento de línea de comando: un password hash.</li>
+	<li>Si su programa es ejecutado sin ningún argumento de línea de comandos o con más de un argumento de línea de commandos, su programa deberá imprimir un mensaje de error (de su elección) y salir inmediatamente, con <code>main</code> retornando <code>1</code> (significando esto un error).</li>
+	<li>De lo contrario su programa deberá proceder a crackear el password dado, idealmente lo más rápido posible, por ultimo imprimiendo el password descifrado seguido de <code>\n</code>, nada más, nada menos, con <code>main</code> retornando <code>0</code>.</li>
+	<li>Asuma que cada password ha sido hasheado con  la función  de C basado en DES (no basado en MD5) <code>crypt</code> función.</li>
+	<li>Asuma que cada password no es más lago que (ejemmm) cuatro caracteres.</li>
+	<li>Asuma que cada password está compuesto enteramente de caracteres alfabéticos (mayúsculas y/o minúsculas).</li>
+</ul>
+<div class="separador"></div>
+<h2 id="walkthrough" class="psetheader">Walkthrough</h2>
+https://youtu.be/tswHrPGQ6KI
+<div class="separador"></div>
+<h2 id="usage" class="psetheader">Uso</h2>
+<p>Su programa deberá comportarse como el ejemplo a continuación. Asumiendo que el texto subrayado es lo que un usuario ha introducido.</p>
+<pre><code>$ <span style="text-decoration: underline;">./crack</span>
+Usage: ./crack hash</code></pre>
+<pre><code>$ <span style="text-decoration: underline;">./crack 50fkUxYHbnXGw</span>
+rofl</code></pre>
+<div class="separador"></div>
+<h2 id="testing" class="psetheader">Probando</h2>
+<p>¡No hay <code>check50</code> para este! Pero las posibilidades son, de que si puede crackear todos los diez passwords anteriores, va por buen camino!</p>
+<div class="separador"></div>
+<h2 id="hints" class="psetheader">Consejos</h2>
+<p>Asegúrese de leer acerca de <code>crypt</code>, tomándo nota particularmente de las menciones de "salt":
+<pre><code>man crypt</code></pre>
+Según esa man page, usted querrá poner
+<pre><code><span style="color:#0000ff;">#define _XOPEN_SOURCE</span>
+<span style="color:#0000ff;">#include</span> <unistd.h></code></pre>
+<p>En la parte superior de su archive a fin de utilizar <code>crypt</code>. Además usted querrá enlazar con <code>-lcrypt</code>, al no compilar con <code>make</code> sino con:
+<pre><code>clang -ggdb3 -O0 -std=c11 -Wall -Werror -Wshadow crack.c -lcrypt -lcs50 -lm -o crack</code></pre>
+<div class="separador"></div>
+<h2 id="faqs" class="psetheader">FAQs</h2>
+<em>¡Ninguna hasta ahora! ¡Recargue esta página periódicamente para revisar si llega alguna!</em>
+<div class="separador"></div>
+<h2 id="changelog" class="psetheader">Registro de cambios</h2>
+<ul>
+ 	<li>29-11-2017
+<ul>
+ 	<li>Versión inicial</li>
+</ul>
+</li>
+</ul>
+<button class="et_pb_button et_pb_button_0 et_pb_module et_pb_bg_layout_light boton-contenidos" id="botonmenumostrar" style="background-color: #fff !important; color: #a51C30 !important; border-color: #a51C30 !important;">+ Contenidos</button>
+<nav id="botonmenu" class="menu-emergente" style="display:none;">
+<div>Tabla de contenidos:</div>
+<a href="#tl-dr">tl;dr</a>
+<a href="#background">Background</a>
+<a href="#specification">Especificación</a>
+<a href="#walkthrough">Walkthrough</a>
+<a href="#usage">Uso</a>
+<a href="#testing">Probando</a>
+<a href="#hints">Consejos</a>
+<a href="#faqs">FAQs</a>
+<a href="#changelog">Registro de cambios</a>
+</nav>
